@@ -10,5 +10,12 @@
     "pie-react-support" : "git@bitbucket.org:pielibs/pie-react-support.git",
     "lodash"  : "~4.11.2",
     "khan-utils" : "git@bitbucket.org:pielibs/khan-utils.git"
+  },
+  "overrides" : {
+    "react" : {
+      "main": [
+        "react-with-addons.js", "react-dom.js"
+      ]
+    }
   }
 }

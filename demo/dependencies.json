@@ -1,5 +1,8 @@
 {
   "dependencies" : {
     "khan-perseus-plotter" : ".."
+  },
+  "resolutions" : {
+    "jquery" : "~2.2.4"
   }
 }

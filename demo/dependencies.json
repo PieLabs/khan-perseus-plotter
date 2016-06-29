@@ -1,0 +1,5 @@
+{
+  "dependencies" : {
+    "khan-perseus-plotter" : ".."
+  }
+}

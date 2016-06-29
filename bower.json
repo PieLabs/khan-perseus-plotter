@@ -2,13 +2,13 @@
   "name" : "khan-perseus-plotter",
   "version" : "1.0.0",
   "main" : [
-    "dist/index.js",
+    "dist/bundle.js",
     "dist/index.css"
   ],
   "dependencies": {
     "react" : "~15.0.1",
     "pie-react-support" : "git@bitbucket.org:pielibs/pie-react-support.git",
-    "lodash"  : "~4.2.3",
+    "lodash"  : "~4.11.2",
     "khan-utils" : "git@bitbucket.org:pielibs/khan-utils.git"
   }
 }

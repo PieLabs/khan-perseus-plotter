@@ -1,0 +1,42 @@
+{
+  "components": [
+    {
+      "id": 1,
+      "component": {
+        "name": "khan-perseus-plotter",
+        "version": "1.0.0"
+      },
+      "correctResponse": [
+        3,
+        5,
+        2
+      ],
+      "model": {
+        "feedback": {
+          "correct": "Correct - you did a great job",
+          "incorrect": "Incorrect - this is not right"
+        },
+        "scaleY": 1,
+        "maxY": 10,
+        "snapsPerLine": 1,
+        "type": "bar",
+        "labels": [
+          "Person",
+          "no of apples"
+        ],
+        "categories": [
+          "Joe",
+          "Jane",
+          "Ahmed"
+        ],
+        "picSize": 30,
+        "picBoxHeight": 36,
+        "plotDimensions": [
+          275,
+          200
+        ],
+        "labelInterval": 1
+      }
+    }
+  ]
+}

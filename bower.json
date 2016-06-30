@@ -13,9 +13,14 @@
   },
   "overrides" : {
     "react" : {
-      "main": [
-        "react-with-addons.js", "react-dom.js"
-      ]
+      "main": {
+        "swap" : {
+          "react.js" : "react-with-addons.js"
+        },
+        "add" : [
+          "react-dom.js"
+        ]
+      } 
     }
   }
 }

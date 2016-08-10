@@ -7,9 +7,9 @@
   ],
   "dependencies": {
     "react" : "~15.0.1",
-    "pie-react-support" : "git@bitbucket.org:pielibs/pie-react-support.git",
+    "pie-react-support" : "git@github.com:PieLabs/pie-react-support.git",
     "lodash"  : "~4.11.2",
-    "khan-utils" : "git@bitbucket.org:pielibs/khan-utils.git"
+    "khan-utils" : "git@github.com:PieLabs/khan-utils.git"
   },
   "overrides" : {
     "react" : {

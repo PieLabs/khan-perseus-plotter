@@ -55,8 +55,6 @@ var Plotter = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired
     },
 
-    // TODO(alex): Figure out why lint chokes on this line
-    // ...widgetPropTypes,
     getDefaultProps: function () {
         return {
             type: BAR,

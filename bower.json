@@ -7,7 +7,7 @@
   ],
   "dependencies": {
     "react" : "~15.0.1",
-    "pie-react-support" : "git@github.com:PieLabs/pie-react-support.git",
+    "pie-react-support" : "git@github.com:PieLabs/pie-react-support.git#feature/update-prop-names",
     "lodash"  : "~4.11.2",
     "khan-utils" : "git@github.com:PieLabs/khan-utils.git"
   },

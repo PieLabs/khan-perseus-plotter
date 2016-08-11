@@ -19,12 +19,12 @@ var Main = React.createClass({
       });
     }
     
-    var isStatic = this.props.env.mode !== 'gather';
+    var isStatic = this.props.model.env.mode !== 'gather';
     var correct, message;
     
-    if(this.props.outcome && this.props.env.mode === 'evaluate'){
-      correct = this.props.outcome.correctness === 'correct';
-      message = this.props.outcome.feedback;
+    if(this.props.model.outcome && this.props.model.env.mode === 'evaluate'){
+      correct = this.props.model.outcome.correctness === 'correct';
+      message = this.props.model.outcome.feedback;
     }
      
     return <div>

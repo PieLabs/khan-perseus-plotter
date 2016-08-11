@@ -54,7 +54,7 @@
 	    this.props.session.response = event.values;
 	  },
 	  handleTrackInteraction: function () {
-	    // console.log('handle track interaction changed', arguments);    
+	    // console.log('handle track interaction changed', arguments);     
 	  },
 	  render: function () {
 
@@ -67,12 +67,12 @@
 	      });
 	    }
 
-	    var isStatic = this.props.env.mode !== 'gather';
+	    var isStatic = this.props.model.env.mode !== 'gather';
 	    var correct, message;
 
-	    if (this.props.outcome && this.props.env.mode === 'evaluate') {
-	      correct = this.props.outcome.correctness === 'correct';
-	      message = this.props.outcome.feedback;
+	    if (this.props.model.outcome && this.props.model.env.mode === 'evaluate') {
+	      correct = this.props.model.outcome.correctness === 'correct';
+	      message = this.props.model.outcome.feedback;
 	    }
 
 	    return React.createElement(
@@ -168,8 +168,6 @@
 	        trackInteraction: React.PropTypes.func.isRequired
 	    },
 
-	    // TODO(alex): Figure out why lint chokes on this line
-	    // ...widgetPropTypes,
 	    getDefaultProps: function () {
 	        return {
 	            type: BAR,

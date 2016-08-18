@@ -1,0 +1,7 @@
+#!/usr/bin/env bash 
+
+echo "jsx -> js"
+webpack
+
+echo "less -> css"
+lessc src/plotter.less dist/index.css

@@ -1,30 +1,27 @@
-var Plotter = require('./plotter');
-var Feedback = require('./feedback');
+import Plotter from './plotter.jsx';
+import Feedback from './feedback.jsx';
 
 var Main = React.createClass({
+
+  /**
+   * The plotter requires a handler for trackInteraction
+   */
+  handleTrackInteraction: function() {
+
+  },
   handlePlotterChange: function(event){
     this.props.session.response = event.values;
-  },
-  handleTrackInteraction: function(){
-    // console.log('handle track interaction changed', arguments);     
   },
   render: function(){
     
     var starting;
+
     if(this.props.session.response){
       starting = this.props.session.response;  
     } else {
       starting = _.map(this.props.model.categories, function(){
         return 1;
       });
-    }
-    
-    var isStatic = this.props.model.env.mode !== 'gather';
-    var correct, message;
-    
-    if(this.props.model.outcome && this.props.model.env.mode === 'evaluate'){
-      correct = this.props.model.outcome.correctness === 'correct';
-      message = this.props.model.outcome.feedback;
     }
      
     return <div>
@@ -40,14 +37,12 @@ var Main = React.createClass({
         picUrl={this.props.model.picUrl}
         plotDimensions={this.props.model.plotDimensions}
         starting={starting}
-        static={isStatic}
+        static={this.props.model.isStatic}
         onChange={this.handlePlotterChange}
         trackInteraction={this.handleTrackInteraction}></Plotter.Widget>
-      <Feedback correct={correct} message={message}/>
+      <Feedback correct={this.props.model.correct} message={this.props.model.message}/>
       </div>;
   } 
 });
-
-// module.exports = Main;
 
 pie.framework('react').register('khan-perseus-plotter', Main);

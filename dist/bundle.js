@@ -44,35 +44,51 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Plotter = __webpack_require__(1);
-	var Feedback = __webpack_require__(2);
+	'use strict';
+
+	var _index = __webpack_require__(1);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _plotter = __webpack_require__(2);
+
+	var _plotter2 = _interopRequireDefault(_plotter);
+
+	var _feedback = __webpack_require__(3);
+
+	var _feedback2 = _interopRequireDefault(_feedback);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Main = React.createClass({
 	  displayName: 'Main',
 
-	  handlePlotterChange: function (event) {
+
+	  /**
+	   * The plotter requires a handler for trackInteraction
+	   */
+	  handleTrackInteraction: function handleTrackInteraction() {},
+	  handlePlotterChange: function handlePlotterChange(event) {
 	    this.props.session.response = event.values;
 	  },
-	  handleTrackInteraction: function () {
-	    // console.log('handle track interaction changed', arguments);     
-	  },
-	  render: function () {
+	  render: function render() {
 
 	    var starting;
+
 	    if (this.props.session.response) {
 	      starting = this.props.session.response;
 	    } else {
 	      starting = _.map(this.props.model.categories, function () {
 	        return 1;
 	      });
-	    }
-
-	    var isStatic = this.props.model.env.mode !== 'gather';
-	    var correct, message;
-
-	    if (this.props.model.outcome && this.props.model.env.mode === 'evaluate') {
-	      correct = this.props.model.outcome.correctness === 'correct';
-	      message = this.props.model.outcome.feedback;
 	    }
 
 	    return React.createElement(
@@ -83,7 +99,7 @@
 	        { href: 'http://khan.github.io/perseus/', target: '_blank' },
 	        'port of perseus plotter'
 	      ),
-	      React.createElement(Plotter.Widget, {
+	      React.createElement(_plotter2.default.Widget, {
 	        scaleY: this.props.model.scaleY,
 	        maxY: this.props.model.maxY,
 	        snapsPerLine: this.props.model.snapsPerLine,
@@ -94,22 +110,21 @@
 	        picUrl: this.props.model.picUrl,
 	        plotDimensions: this.props.model.plotDimensions,
 	        starting: starting,
-	        'static': isStatic,
+	        'static': this.props.model.isStatic,
 	        onChange: this.handlePlotterChange,
 	        trackInteraction: this.handleTrackInteraction }),
-	      React.createElement(Feedback, { correct: correct, message: message })
+	      React.createElement(_feedback2.default, { correct: this.props.model.correct, message: this.props.model.message })
 	    );
 	  }
 	});
 
-	// module.exports = Main;
-
 	pie.framework('react').register('khan-perseus-plotter', Main);
 
-
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports) {
+
+	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-redeclare, no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
@@ -124,7 +139,7 @@
 	var DOT_PLOT_POINT_SIZE = 4;
 	var DOT_PLOT_POINT_PADDING = 8;
 
-	const widgetPropTypes = {
+	var widgetPropTypes = {
 	    type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
 	    labels: React.PropTypes.arrayOf(React.PropTypes.string),
 	    categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])),
@@ -168,7 +183,7 @@
 	        trackInteraction: React.PropTypes.func.isRequired
 	    },
 
-	    getDefaultProps: function () {
+	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            type: BAR,
 	            labels: ["", ""],
@@ -187,29 +202,29 @@
 	        };
 	    },
 
-	    getInitialState: function () {
+	    getInitialState: function getInitialState() {
 	        return {
 	            values: this.props.starting || [1]
 	        };
 	    },
 
-	    render: function () {
+	    render: function render() {
 	        return React.createElement("div", {
 	            className: "perseus-widget-plotter graphie " + ApiClassNames.INTERACTIVE,
 	            ref: "graphieDiv" });
 	    },
 
-	    componentDidUpdate: function (prevProps, prevState) {
+	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
 	        if (this.shouldSetupGraphie) {
 	            this.setupGraphie(prevState);
 	        }
 	    },
 
-	    componentDidMount: function () {
+	    componentDidMount: function componentDidMount() {
 	        this.setupGraphie(this.state);
 	    },
 
-	    componentWillReceiveProps: function (nextProps) {
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var props = ["type", "labels", "categories", "scaleY", "maxY", "snapsPerLine", "picUrl", "labelInterval", "static"];
 
 	        this.shouldSetupGraphie = _.some(props, function (prop) {
@@ -222,7 +237,7 @@
 	        }
 	    },
 
-	    setupGraphie: function (prevState) {
+	    setupGraphie: function setupGraphie(prevState) {
 	        var self = this;
 	        self.shouldSetupGraphie = false;
 	        var graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
@@ -337,7 +352,7 @@
 	        graphie.label([-60 / c.scale[0], c.dimY / 2], self.props.labels[1], "center", false).css("font-weight", "bold").addClass("rotate");
 	    },
 
-	    labelCategory: function (x, category) {
+	    labelCategory: function labelCategory(x, category) {
 	        var graphie = this.graphie;
 	        category = category + "";
 	        var isTeX = false;
@@ -349,7 +364,7 @@
 	        graphie.label([x, 0], category, "below", isTeX);
 	    },
 
-	    setupCategories: function (config) {
+	    setupCategories: function setupCategories(config) {
 	        var self = this;
 	        var c = config;
 	        var graphie = self.graphie;
@@ -426,7 +441,7 @@
 	        }
 	    },
 
-	    setupBar: function (args) {
+	    setupBar: function setupBar(args) {
 	        var i = args.index;
 	        var startHeight = args.startHeight;
 	        var config = args.config;
@@ -442,7 +457,7 @@
 	            x = 0.5 + i + config.barPad;
 	        }
 
-	        var scaleBar = function (i, height) {
+	        var scaleBar = function scaleBar(i, height) {
 	            var center = graphie.scalePoint(0);
 
 	            // Scale filled bucket (bar)
@@ -518,7 +533,7 @@
 	        return x;
 	    },
 
-	    setupLine: function (i, startHeight, config) {
+	    setupLine: function setupLine(i, startHeight, config) {
 	        var self = this;
 	        var c = config;
 	        var graphie = self.graphie;
@@ -558,9 +573,9 @@
 	        return x;
 	    },
 
-	    setupDotplot: function (i, config) {
+	    setupDotplot: function setupDotplot(i, config) {
 	        var graphie = this.graphie;
-	        return this.setupTiledPlot(i, 1, config, (x, y) => {
+	        return this.setupTiledPlot(i, 1, config, function (x, y) {
 	            return graphie.ellipse([x, y], [DOT_PLOT_POINT_SIZE / graphie.scale[0], DOT_PLOT_POINT_SIZE / graphie.scale[1]], {
 	                fill: KhanUtil.INTERACTIVE,
 	                stroke: KhanUtil.INTERACTIVE
@@ -568,16 +583,18 @@
 	        });
 	    },
 
-	    setupPic: function (i, config) {
+	    setupPic: function setupPic(i, config) {
+	        var _this = this;
+
 	        var graphie = this.graphie;
-	        return this.setupTiledPlot(i, 0, config, (x, y) => {
+	        return this.setupTiledPlot(i, 0, config, function (x, y) {
 	            var scaledCenter = graphie.scalePoint([x, y]);
-	            var size = this.props.picSize;
-	            return graphie.raphael.image(this.props.picUrl, scaledCenter[0] - size / 2, scaledCenter[1] - size / 2, size, size);
+	            var size = _this.props.picSize;
+	            return graphie.raphael.image(_this.props.picUrl, scaledCenter[0] - size / 2, scaledCenter[1] - size / 2, size, size);
 	        });
 	    },
 
-	    setupTiledPlot: function (i, bottomMargin, config, createImage) {
+	    setupTiledPlot: function setupTiledPlot(i, bottomMargin, config, createImage) {
 	        var self = this;
 	        var c = config;
 	        var graphie = self.graphie;
@@ -628,7 +645,7 @@
 	        return x;
 	    },
 
-	    setPicHeight: function (i, y) {
+	    setPicHeight: function setPicHeight(i, y) {
 	        var values = _.clone(this.state.values);
 	        values[i] = y;
 	        this.drawPicHeights(values, this.state.values);
@@ -636,12 +653,12 @@
 	        this.changeAndTrack({ values: values });
 	    },
 
-	    changeAndTrack: function (data) {
+	    changeAndTrack: function changeAndTrack(data) {
 	        this.props.onChange(data);
 	        this.props.trackInteraction();
 	    },
 
-	    drawPicHeights: function (values, prevValues) {
+	    drawPicHeights: function drawPicHeights(values, prevValues) {
 	        var self = this;
 	        var graphie = self.graphie;
 	        var pics = graphie.pics;
@@ -655,9 +672,11 @@
 	                    if (wasJustShown) {
 	                        pic.animate({
 	                            "stroke-width": 8
-	                        }, 75, () => pic.animate({
-	                            "stroke-width": 2
-	                        }, 75));
+	                        }, 75, function () {
+	                            return pic.animate({
+	                                "stroke-width": 2
+	                            }, 75);
+	                        });
 	                    }
 	                }
 	                $(pic[0]).css({ display: show ? "inline" : "none" });
@@ -665,11 +684,11 @@
 	        });
 	    },
 
-	    getUserInput: function () {
+	    getUserInput: function getUserInput() {
 	        return this.state.values;
 	    },
 
-	    simpleValidate: function (rubric) {
+	    simpleValidate: function simpleValidate(rubric) {
 	        return Plotter.validate(this.getUserInput(), rubric);
 	    }
 	});
@@ -684,15 +703,16 @@
 	    staticTransform: staticTransform
 	};
 
-
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
+
+	'use strict';
 
 	var Feedback = React.createClass({
 	  displayName: 'Feedback',
 
-	  render: function () {
+	  render: function render() {
 	    if (this.props.correct === undefined) {
 	      return React.createElement('div', null);
 	    } else {
@@ -708,7 +728,6 @@
 	});
 
 	module.exports = Feedback;
-
 
 /***/ }
 /******/ ]);

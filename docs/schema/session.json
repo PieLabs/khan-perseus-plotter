@@ -1,0 +1,14 @@
+{
+  "id" : "session",
+  "title" : "Session",
+  "description" : "the user session data",
+  "properties" : {
+    "response" : {
+      "type" : "array",
+      "description" : "An array of numbers representing each bar",
+      "items" : {
+        "type" : "number"
+      }
+    }
+  }
+}

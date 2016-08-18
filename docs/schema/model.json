@@ -1,0 +1,90 @@
+{
+  "id" : "model",
+  "title" : "model",
+  "type" : "object",
+  "required" : ["id"],
+  "properties" : {
+    "id" : {
+      "type" : "string",
+      "description" : "the uid of the model"
+    },
+    "component" : {
+      "type" : "object",
+      "description" : "the unique component identifier",
+      "required" : ["name", "version"],
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "version" : {
+          "type" : "string"
+        }
+      }
+    },
+    "correctResponse" : {
+      "type" : "array",
+      "items" : {
+        "type" : "number"
+      }
+    },
+    "model" : {
+      "type" : "object",
+      "description" : "The base for the ui model",
+      "properties" : {
+        "feedback" : {
+          "type" : "object",
+          "properties" : {
+            "correct" : {
+              "type" : "string"
+            },
+            "incorrect" : {
+              "type" : "string"
+            }
+          }
+        },
+        "scaleY" : {
+          "type" : "number"
+        },
+        "maxY" : {
+          "type" : "number"
+        },
+        "snapsPerLine" : {
+          "type" : "number"
+        },
+        "type" : {
+          "type" : "string",
+          "enum" : ["bar"]
+        },
+        "labels" : {
+          "type" : "array",
+          "description" : "The 2 labels for x + y axes",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "categories" : {
+          "type" : "array",
+          "description" : "each category will be represented as a bar",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "picSize" : {
+          "type" : "number"
+        },
+        "picBoxHeight" : {
+          "type" : "number"
+        },
+        "plotDimensions" : {
+          "type" : "array",
+          "items" : {
+            "type" : "number"
+          }
+        },
+        "labelInterval" : {
+          "type" : "number"
+        }
+      }
+    }
+  }
+}

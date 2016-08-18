@@ -1,6 +1,7 @@
 {
   "name" : "khan-perseus-plotter",
   "version" : "1.0.0",
+  "repository" : "http://github.com/PieLabs/khan-perseus-plotter",
   "main" : [
     "dist/bundle.js",
     "dist/index.css"

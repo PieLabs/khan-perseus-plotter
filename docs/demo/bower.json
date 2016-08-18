@@ -1,0 +1,11 @@
+{
+  "name": "tmp-bower-config",
+  "version": "1.0.0",
+  "dependencies": {
+    "khan-perseus-plotter": "/Users/edeustace/dev/github/PieLabs/khan-perseus-plotter",
+    "control-panel": "git@bitbucket.org:pielibs/control-panel.git"
+  },
+  "resolutions": {
+    "jquery": "~2.2.4"
+  }
+}

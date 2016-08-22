@@ -1,21 +1,14 @@
-# Build 
+A port of the Khan Academy's plotter component to prove that a complex React component can run in the pie context.
 
-Note: Haven't streamlined this yet... for now: 
-
-
-```shell
-webpack
-```
+## Build 
 
 ```shell
-npm install -g webpack less
-npm install babel-cli
-babel --presets react src/index.jsx --out-file dist/index.js
-babel --presets react src/plotter.jsx --out-file dist/plotter.js
-webpack dist/index.js dist/bundle.js
-lessc src/plotter.less dist/index.css
+bin/build
 ```
 
-# Run Demo
-    cd serve-pie-demo
-    serve-pie
+## Run 
+
+```
+npm install -g serve-pie
+serve-pie
+```
